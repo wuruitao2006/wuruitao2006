@@ -1,16 +1,305 @@
-## Hi there 👋
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人学习主页 - 大学四年成长档案</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Microsoft YaHei', sans-serif; }
+        body { background-color: #f0f2f5; color: #333; line-height: 1.6; }
+        
+        /* 导航控制栏 */
+        .nav-controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-btn {
+            padding: 8px 16px;
+            background: #4096ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
 
-<!--
-**wuruitao2006/wuruitao2006** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+        /* 页面容器 */
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+        }
+        .page-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
 
-Here are some ideas to get you started:
+        /* 标题样式 */
+        .section-title {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #4096ff;
+        }
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+        /* 个人简介模块 */
+        .profile-info p {
+            margin: 0.8rem 0;
+            font-size: 1.1rem;
+        }
+        .profile-info strong {
+            color: #4096ff;
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        /* 学习计划模块 */
+        .plan-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .plan-tab {
+            padding: 0.8rem 1.5rem;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .plan-tab.active {
+            background: #4096ff;
+            color: white;
+        }
+        .plan-content {
+            padding: 1.5rem;
+            border: 1px solid #e6e8eb;
+            border-radius: 4px;
+            line-height: 1.8;
+        }
+
+        /* 视频模块 */
+        .video-container {
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .video-container video {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        /* 资源库模块 */
+        .resource-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .resource-list li {
+            margin: 0.8rem 0;
+            padding: 0.8rem;
+            background: #f9fafb;
+            border-radius: 4px;
+        }
+        .resource-list a {
+            color: #4096ff;
+            text-decoration: none;
+        }
+        .resource-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* 二维码模块 */
+        .qrcode-section {
+            text-align: center;
+            padding: 2rem;
+        }
+        .qrcode-img {
+            width: 200px;
+            height: 200px;
+            margin: 1rem auto;
+            border: 1px solid #e6e8eb;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .page-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 前进/后退导航按钮 -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" disabled>← 上一页</button>
+        <button class="nav-btn" id="nextBtn">下一页 →</button>
+    </div>
+
+    <!-- 页面容器 -->
+    <div class="page-container">
+        <!-- 1. 个人简介模块 -->
+        <div class="page-section active" id="section1">
+            <h2 class="section-title">个人简介</h2>
+            <div class="profile-info">
+                <p><strong>姓名：</strong>武瑞涛</p >
+                <p><strong>性别：</strong>男</p >
+                <p><strong>电话：</strong>15092956201</p >
+                <p><strong>邮箱：</strong>3187332264@qq.com</p >
+                <p><strong>QQ：</strong>3187332264</p >
+                <p><strong>兴趣爱好：</strong>阅读经济类书籍、数据分析、篮球</p >
+                <p><strong>学习风格：</strong>先框架后细节，偏好结合案例理解理论</p >
+            </div>
+        </div>
+
+        <!-- 2. 学习计划模块 -->
+        <div class="page-section" id="section2">
+            <h2 class="section-title">大学四年学习计划</h2>
+            <div class="plan-tabs">
+                <button class="plan-tab active" onclick="switchPlanTab('long-term')">长期计划（四年）</button>
+                <button class="plan-tab" onclick="switchPlanTab('short-term')">短期计划（本学期）</button>
+            </div>
+            <div class="plan-content" id="long-term">
+                <h4>大一：夯实基础</h4>
+                <p>完成高数、微观经济学等基础课程，掌握Excel基础数据分析技能，阅读3本经济类入门书籍。</p >
+                <h4>大二：专业入门</h4>
+                <p>学习宏观经济学、货币银行学，考取计算机二级证书，参与1次经济类学科竞赛。</p >
+                <h4>大三：深化技能</h4>
+                <p>掌握Stata/SPSS计量工具，学习公司金融、金融市场学，完成1段金融行业实习。</p >
+                <h4>大四：实践与求职</h4>
+                <p>完成毕业论文（聚焦数字金融方向），参加校招，获取1份金融机构全职offer。</p >
+            </div>
+            <div class="plan-content" id="short-term" style="display: none;">
+                <h4>本学期目标</h4>
+                <p>1. 高数（下）、微观经济学成绩保持85+；</p >
+                <p>2. 每周学习2小时Excel函数（VLOOKUP、数据透视表）；</p >
+                <p>3. 阅读《经济学原理（曼昆）》并完成读书笔记；</p >
+                <p>4. 参加学校“经济案例分析大赛”初赛。</p >
+            </div>
+        </div>
+
+        <!-- 3. 学习体会与反思模块 -->
+        <div class="page-section" id="section3">
+            <h2 class="section-title">学习体会与反思</h2>
+            <h4>开学至今学习体会：</h4>
+            <p>微观经济学的“供需模型”让我理解了市场价格的形成逻辑，比如近期猪肉价格波动可以用供需变化解释；但高数的“多元函数积分”部分理解较慢，需要多做习题巩固。</p >
+            <h4>反思与改进：</h4>
+            <p>1. 高数学习要增加“错题整理”环节，每周复盘1次；</p >
+            <p>2. 经济学学习结合时事案例（如央行降息），提升理论应用能力；</p >
+            <p>3. 合理分配时间，避免考前集中突击。</p >
+        </div>
+
+        <!-- 4. 学习+生活展示（视频） -->
+        <div class="page-section" id="section4">
+            <h2 class="section-title">学习+生活展示</h2>
+            <p>（注：替换为自己制作的视频文件路径）</p >
+            <div class="video-container">
+                <video controls>
+                    <source src="1.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放，请更新浏览器。
+                </video>
+            </div>
+            <p>视频内容：记录了开学至今的学习日常（图书馆自习、小组讨论）与生活片段（篮球社团活动、校园秋景）。</p >
+        </div>
+
+        <!-- 5. 学习资源库模块 -->
+        <div class="page-section" id="section5">
+            <h2 class="section-title">学习资源库</h2>
+            <ul class="resource-list">
+                <li>
+                    <strong>课程资源：</strong>
+                    <a href=" " target="_blank">耶鲁大学《金融市场》（Coursera）</a >
+                </li>
+                <li>
+                    <strong>工具教程：</strong>
+                    <a href="https://www.bilibili.com/video/BV1Zt411v7zE" target="_blank">B站《Excel数据透视表入门》</a >
+                </li>
+                <li>
+                    <strong>电子书籍：</strong>
+                    <a href="https://book118.com/" target="_blank">《经济学原理（曼昆）》电子版</a >
+                </li>
+                <li>
+                    <strong>行业资讯：</strong>
+                    <a href="https://wallstreetcn.com/" target="_blank">华尔街见闻（金融时事）</a >
+                </li>
+            </ul>
+        </div>
+
+        <!-- 6. 二维码模块 -->
+        <div class="page-section" id="section6">
+            <h2 class="section-title">个人学习主页二维码</h2>
+            <div class="qrcode-section">
+                <p>扫描下方二维码访问我的学习主页：</p >
+                <!-- 注：替换为自己网页的二维码图片 -->
+                < img src="qrcode.png" alt="学习主页二维码" class="qrcode-img">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 前进/后退页面切换
+        const sections = document.querySelectorAll('.page-section');
+        let currentIndex = 0;
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentIndex < sections.length - 1) {
+                sections[currentIndex].classList.remove('active');
+                currentIndex++;
+                sections[currentIndex].classList.add('active');
+                document.getElementById('prevBtn').disabled = false;
+                if (currentIndex === sections.length - 1) {
+                    document.getElementById('nextBtn').disabled = true;
+                }
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                sections[currentIndex].classList.remove('active');
+                currentIndex--;
+                sections[currentIndex].classList.add('active');
+                document.getElementById('nextBtn').disabled = false;
+                if (currentIndex === 0) {
+                    document.getElementById('prevBtn').disabled = true;
+                }
+            }
+        });
+
+        // 学习计划标签切换
+        function switchPlanTab(tabId) {
+            document.querySelectorAll('.plan-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.querySelectorAll('.plan-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
+
